@@ -2,25 +2,26 @@
 
 **The purpose of this project is to demonstrate my knowledge in the following areas:**
 
-	* Web based application development 
-	* .Net application development 
-	* JQuery client side development 
-	* Object oriented programming and design skills 
-	* Database programming and design skills 
-	* Problem solving/solution skills 
+* Web based application development 
+* .Net application development 
+* JQuery client side development 
+* Object oriented programming and design skills 
+* Database programming and design skills 
+* Problem solving/solution skills 
 
 
 **The requirements are as follows:**
-	* The application must be in the form of a Visual Studio 2010/2012 .Net Framework 4.0/4.5 MVC application. 
-	* Application must be written in C#. 
-	* All pages should make use of Razor Layouts 
-	* Database must be a MS SQL 2005 database or above. 
-	* Express versions are OK. 
-	* All database interactions must be within Stored Procedures. ADO.net or Entity Framework are OK. 
-	* Client side code must be Jquery 1.5 or above. 
-	* Asp.net Ajax is not allowed, use Jquery for ajax calls. 
-	* All Inputs, Links, etc, should be functional. 
-	*  Documents should be stored using the filesystem.
+
+* The application must be in the form of a Visual Studio 2010/2012 .Net Framework 4.0/4.5 MVC application. 
+* Application must be written in C#. 
+* All pages should make use of Razor Layouts 
+* Database must be a MS SQL 2005 database or above. 
+* Express versions are OK. 
+* All database interactions must be within Stored Procedures. ADO.net or Entity Framework are OK. 
+* Client side code must be Jquery 1.5 or above. 
+* Asp.net Ajax is not allowed, use Jquery for ajax calls. 
+* All Inputs, Links, etc, should be functional. 
+*  Documents should be stored using the filesystem.
 
 **Additional Requirements:**
 

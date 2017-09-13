@@ -11,7 +11,7 @@ namespace DocumentStorage.Models.DB
     [Table("files")]
     public class File
     {
-        
+        [Key]
         public int FileID { get; set; }
 
         [Required]

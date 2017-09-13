@@ -11,6 +11,7 @@ namespace DocumentStorage.Models.DB
     [Table("users")]
     public class User
     {
+        [Key]
         public int UserID { get; set; }
 
         [Required]

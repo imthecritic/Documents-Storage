@@ -13,17 +13,23 @@ namespace DocumentStorage.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult CreateAccount()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult AddFiles()
         {
-            ViewData["Message"] = "Your contact page.";
+            return View();
+        }
 
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
+        public IActionResult Dashboard()
+        {
             return View();
         }
 

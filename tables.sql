@@ -1,19 +1,18 @@
 use DocumentApp
 
+IF OBJECT_ID ('dbo.usersfiles', 'U') IS NOT NULL  
+   DROP TABLE usersfiles;
+
 IF OBJECT_ID ('dbo.users', 'U') IS NOT NULL  
    DROP TABLE users;  
 
 IF OBJECT_ID ('dbo.files', 'U') IS NOT NULL  
    DROP TABLE files;
 
-IF OBJECT_ID ('dbo.usersfiles', 'U') IS NOT NULL  
-   DROP TABLE usersfiles;
-
 GO  
 CREATE TABLE users  
 (  
     UserID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
-    UserName NVARCHAR(40) NOT NULL,
     PasswordHash BINARY(64) NOT NULL,
     FirstName NVARCHAR(40) NOT NULL,
     LastName NVARCHAR(40) NOT NULL,

@@ -19,9 +19,9 @@ namespace DocumentStorage.Models
 
         public bool IsValid(string email, string password, AppDbContext context)
         {
-            if (context != null) { 
-            using (context)
+            if (context != null)
             {
+
                 var user = context.Users.Where(u => u.Email == email && u.PasswordHash == password).ToList();
                 if (user.Any())
                 {
@@ -31,7 +31,6 @@ namespace DocumentStorage.Models
                 {
                     return false;
                 }
-            }
             }
             else
             {

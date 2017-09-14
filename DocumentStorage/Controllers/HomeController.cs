@@ -37,7 +37,7 @@ namespace DocumentStorage.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Login data is incorrect!");
+                    ModelState.AddModelError("", "Login data is incorrect, please try again!");
                 }
             }
             return View(user);

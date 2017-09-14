@@ -28,5 +28,7 @@ namespace DocumentStorage.Models.DB
 
         [Required]
         public bool Active { get; set; }
+
+        
     }
 }

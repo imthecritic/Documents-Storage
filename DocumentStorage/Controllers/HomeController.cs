@@ -1,6 +1,8 @@
-﻿using DocumentStorage.Models.DB;
+﻿using DocumentStorage.Models;
+using DocumentStorage.Models.DB;
 using Microsoft.AspNetCore.Mvc;
-
+using System;
+using System.Collections.Generic;
 
 namespace DocumentStorage.Controllers
 {
@@ -31,7 +33,7 @@ namespace DocumentStorage.Controllers
             {
                 if (user.IsValid(user.Email, user.Password, _context))
                 {
-                    return RedirectToAction("CreateAccount", "Home");
+                    return RedirectToAction("Dashboard", new { id = 1 });
                 }
                 else
                 {
@@ -86,8 +88,37 @@ namespace DocumentStorage.Controllers
             return View();
         }
 
-        public IActionResult Dashboard()
+        public IActionResult Dashboard(int userId)
         {
+            Dashboard dashboard = new Dashboard
+            {
+                UserID = userId
+            };
+
+            List<File> files= dashboard.GatherFiles(userId, _context);
+            return View(files);
+        }
+
+        public ActionResult DashSort(string sortOrder)
+        {
+            /*https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application*/
+
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Created" ? "created_desc" : "Created";
+            ViewBag.DateSortParm = sortOrder == "Downloads" ? "downloads_desc" : "Downloads";
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    break;
+                case "downloads_desc":
+                    break;
+                case "created_desc":
+                    break;
+                default:
+                    break;
+            }
+
             return View();
         }
 

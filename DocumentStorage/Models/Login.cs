@@ -17,6 +17,8 @@ namespace DocumentStorage.Models
         [DataType(DataType.Password)]
         public string Password {get; set;}
 
+        public int UserID { get; set; }
+
         public bool IsValid(string email, string password, AppDbContext context)
         {
             if (context != null)
@@ -25,6 +27,7 @@ namespace DocumentStorage.Models
                 var user = context.Users.Where(u => u.Email == email && u.PasswordHash == password).ToList();
                 if (user.Any())
                 {
+                    
                     return true;
                 }
                 else

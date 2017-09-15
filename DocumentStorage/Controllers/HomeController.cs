@@ -33,7 +33,7 @@ namespace DocumentStorage.Controllers
             {
                 if (user.IsValid(user.Email, user.Password, _context))
                 {
-                    return RedirectToAction("Dashboard", new { id = 1 });
+                    return RedirectToAction("Dashboard", new { UserID = 1 });
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace DocumentStorage.Controllers
                         FirstName = account.FirstName,
                         LastName = account.LastName,
                         Email = account.Email,
-                        PasswordHash = account.Password
+                        PasswordHash = account.SecurePassword(account.Password)
                     };
 
                     _context.Users.Add(user);
@@ -99,28 +99,28 @@ namespace DocumentStorage.Controllers
             return View(files);
         }
 
-        public ActionResult DashSort(string sortOrder)
-        {
-            /*https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application*/
+        //public ActionResult DashSort(string sortOrder)
+        //{
+        //    /*https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application*/
 
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Created" ? "created_desc" : "Created";
-            ViewBag.DateSortParm = sortOrder == "Downloads" ? "downloads_desc" : "Downloads";
+        //    ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+        //    ViewBag.DateSortParm = sortOrder == "Created" ? "created_desc" : "Created";
+        //    ViewBag.DateSortParm = sortOrder == "Downloads" ? "downloads_desc" : "Downloads";
 
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    break;
-                case "downloads_desc":
-                    break;
-                case "created_desc":
-                    break;
-                default:
-                    break;
-            }
+        //    switch (sortOrder)
+        //    {
+        //        case "name_desc":
+        //            break;
+        //        case "downloads_desc":
+        //            break;
+        //        case "created_desc":
+        //            break;
+        //        default:
+        //            break;
+        //    }
 
-            return View();
-        }
+        //    return View();
+        //}
 
         public IActionResult Error()
         {

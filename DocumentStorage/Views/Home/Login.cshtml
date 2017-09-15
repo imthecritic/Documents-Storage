@@ -8,7 +8,7 @@
 <div>
     @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { name = "loginform", id = "loginform" }))
     {
-
+        @Html.AntiForgeryToken()
         <div class="form-group">
             @Html.LabelFor(m => m.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             @Html.TextBoxFor(m => m.Email)
@@ -19,7 +19,7 @@
             @Html.PasswordFor(m => m.Password)
         </div>
         <ul id="errors"></ul>
-
+        @Html.ValidationSummary()
         <input input type="submit" value="Login" />
     }
     <br />

@@ -24,6 +24,7 @@ namespace DocumentStorage.Models.DB
         public int Downloads { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime Created { get; set; }
 
         [Required]

@@ -16,6 +16,8 @@
             <th>
                 Downloads
             </th>
+            <th></th>
+            <th></th>
         </tr>
         <tbody>
  @foreach (var item in Model)
@@ -31,8 +33,7 @@
             @Html.DisplayFor(modelItem => item.Downloads)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.FileID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.FileID }) |
+            @Html.ActionLink("Download", "Download", new { id = item.FileID }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.FileID })
         </td>
     </tr>

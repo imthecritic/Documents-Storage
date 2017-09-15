@@ -1,5 +1,4 @@
-﻿@model DocumentStorage.Models.CreateAccount
-
+﻿
 @{
     ViewData["Title"] = "Create Account";
 }
@@ -8,43 +7,16 @@
 <div>
     <h2>Create Account</h2>
     <br />
-    @using (Html.BeginForm("CreateAccount", "Home", FormMethod.Post, new { name = "createform", id = "createform" }))
-    {
-        <div class="form-group">
-            @Html.LabelFor(m => m.FirstName, "First Name", htmlAttributes: new { name="firstname", @class = "control-label col-md-2" })
-            @Html.TextBoxFor(m => m.FirstName)
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.LastName, "Last Name", htmlAttributes: new { name = "lastname", @class = "control-label col-md-2" })
-            @Html.TextBoxFor(m => m.LastName)
-
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Email, htmlAttributes: new { name = "email", @class = "control-label col-md-2" })
-            @Html.TextBoxFor(m => m.Email)
-
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, htmlAttributes: new { name = "password", @class = "control-label col-md-2" })
-            @Html.PasswordFor(m => m.Password)
-
-
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.PasswordReEnter, "Re-Enter", htmlAttributes: new { name = "reenter", @class = "control-label col-md-2" })
-            @Html.PasswordFor(m => m.PasswordReEnter)
-        </div>
-        @Html.ValidationSummary()
-        @Html.AntiForgeryToken()
-        <input input type="submit" value="Save" />
-    }
-    <br />
-
-    <p>
-        If you have an account @Html.ActionLink("login", "Index", "Home") .
-
-    </p>
+@using (Html.BeginForm("CreateAccount", "Home", FormMethod.Post, new { name = "createform", id = "createform" }))
+{
+    @Html.Partial("AccountDetails")
+}
 </div>
+
+<p>
+    If you have an account @Html.ActionLink("login", "Index", "Home") .
+
+</p>
 
 @section Scripts{
     <script src="~/lib/jquery/dist/jquery.js"></script>

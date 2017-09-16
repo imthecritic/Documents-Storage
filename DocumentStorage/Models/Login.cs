@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DocumentStorage.Models
 {
@@ -31,12 +32,9 @@ namespace DocumentStorage.Models
                 var user = context.Users.Where(u => u.Email == email && u.PasswordHash == hashed).ToList();
                 if (user.Any())
                 {
-                    //User x = user[0];
-                    //if (VerifyMd5Hash(md5Hash, x.PasswordHash, hashed))
-                    //{
+      
                         return true;
-                    //}
-                    //else { return false; }
+
                 }
                 else
                 {
@@ -71,26 +69,6 @@ namespace DocumentStorage.Models
             // Return the hexadecimal string.
             return sBuilder.ToString();
         }
-
-        private static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
-        {
-            // Hash the input.
-            string hashOfInput = GetMd5Hash(md5Hash, input);
-
-            // Create a StringComparer an compare the hashes.
-            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-
-            if (0 == comparer.Compare(hashOfInput, hash))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
 
     }
 }

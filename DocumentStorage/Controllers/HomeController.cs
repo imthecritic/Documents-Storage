@@ -78,7 +78,7 @@ namespace DocumentStorage.Controllers
             return View(account);
         }
 
-        public IActionResult AddFiles()
+        public IActionResult AddFile()
         {
             return View();
         }

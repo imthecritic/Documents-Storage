@@ -19,7 +19,6 @@
             @Html.PasswordFor(m => m.Password)
         </div>
         <ul id="errors"></ul>
-        @Html.ValidationSummary()
         <input input type="submit" value="Login" />
     }
     <br />
@@ -29,6 +28,7 @@
         if not @Html.ActionLink("sign up", "CreateAccount", "Home") today!
     </p>
 </div>
+@*JQuery Validation scripts are in site.js*@
 
 @section Scripts{ 
 <script src="~/lib/jquery/dist/jquery.js"></script>

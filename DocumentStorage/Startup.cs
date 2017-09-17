@@ -53,6 +53,7 @@ namespace DocumentStorage
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+
             services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsPrincipalFactory>();
 
             services.AddMvc();

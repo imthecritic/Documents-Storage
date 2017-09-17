@@ -34,8 +34,8 @@
             @Html.DisplayFor(modelItem => item.Downloads)
         </td>
         <td>
-            @Html.ActionLink("Download", "Download", new { id = item.FileID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.FileID })
+            @Html.ActionLink("Download", "DownloadFile", new {filename = item.FileName }) |
+            @Html.ActionLink("Delete", "DeleteFile", new { filename = item.FileName })
         </td>
     </tr>
 

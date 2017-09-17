@@ -4,12 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.StaticFiles;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 
@@ -78,11 +76,11 @@ namespace DocumentStorage.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAccount(Models.CreateAccount account)
+        public async Task<IActionResult> CreateAccount(Models.AccountInfo account)
         {
             if (ModelState.IsValid)
             {
-                if (account.IsValid(account.Email, _context))
+                if (account.AccountNotFound(account.Email, _context))
                 {
                     User user = new User
                     {
@@ -102,7 +100,7 @@ namespace DocumentStorage.Controllers
                         await _loginManager.SignInAsync(user, isPersistent: false);
 
 
-                        return RedirectToAction("Login", "Home");
+                        return RedirectToAction("Index", "Home");
 
                     }
 
@@ -153,9 +151,79 @@ namespace DocumentStorage.Controllers
             return View();
         }
 
-        public IActionResult Edit()
+        public async Task<IActionResult> DownloadFile(string filename)
         {
-            return View();
+            string email = User.Identity.Name;
+            var user = await _userManager.FindByEmailAsync(email.ToUpper());
+            string userdir = "uploads\\" + user.Id.ToString();
+            var uploads = Path.Combine(_environment.WebRootPath, userdir);
+
+            var path = Path.Combine(
+                            uploads, filename);
+
+            string contentType;
+            new FileExtensionContentTypeProvider().TryGetContentType(filename, out contentType);
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            //return new FileStreamResult(memory, contentType);
+            return File(memory, contentType);
+                
+           }
+
+        public IActionResult DeleteFile(int fileID)
+        {
+            var file = new Models.DB.File() { FileID =fileID, Active = false};
+
+            _context.Files.Attach(file);
+            _context.Entry(file).Property(x => x.Active).IsModified = true;
+            _context.SaveChanges();
+
+            return View("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit()
+        {
+
+            string email = User.Identity.Name;
+            User user = await _userManager.FindByEmailAsync(email.ToUpper()); 
+            AccountInfo accountInfo = new AccountInfo
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email
+            };
+            return View(accountInfo);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AccountInfo model)
+        {
+            string email = User.Identity.Name;
+            User user = await _userManager.FindByEmailAsync(email.ToUpper());
+            if (!ModelState.IsValid)
+            {
+                // there were validation errors => redisplay the view
+                return View(model);
+            }
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            //user.PasswordHash = AppUserManager.passwordHasher.HashPassword(user, model.Password); //does not work
+
+            IdentityResult result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Account not updated, try again!");
+            }
+
+                return View(model);
         }
 
         [HttpGet]

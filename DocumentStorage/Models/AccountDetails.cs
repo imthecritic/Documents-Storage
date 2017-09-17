@@ -9,7 +9,7 @@ using System.Text;
 
 namespace DocumentStorage.Models
 {
-    public class CreateAccount
+    public class AccountInfo
     {
 
         [Required]
@@ -27,7 +27,7 @@ namespace DocumentStorage.Models
         [Required]
         public string Email { get; set; }
 
-        public bool IsValid(string email, AppDbContext context)
+        public bool AccountNotFound(string email, AppDbContext context)
         {
             if (context != null)
             {

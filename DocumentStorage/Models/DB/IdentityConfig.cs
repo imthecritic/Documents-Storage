@@ -21,7 +21,11 @@ namespace DocumentStorage.Models.DB
                 store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors,
                 serviceProvider, logger)
         {
+           // passwordHasher = new PasswordHasher<User>();
         }
+
+       // public static PasswordHasher<User> passwordHasher { get; set; }
+
     }
 
 

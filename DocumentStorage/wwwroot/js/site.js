@@ -75,5 +75,47 @@ $(document).ready(function () {
         }
     });
 
+    $("#editform").validate({
+        // Specify validation rules
+        rules: {
+            FirstName: {
+                required: true,
+            },
+            LastName: {
+                required: true
+            },
+            Email: {
+                required: true,
+                // Specify that email should be validated
+                // by the built-in "email" rule
+                email: true
+            },
+            Password: {
+                required: true,
+            },
+
+            PasswordReEnter: {
+                required: true,
+                equalTo: '#Password',
+            }
+        },
+        // Specify validation error messages
+        messages: {
+            FirstName: "Please provide a first name",
+            LastName: "Please provide a last name",
+            Password: "Please provide a password",
+            PasswordReEnter: {
+                required: "Please reenter the password",
+                equalTo: "Passwords do not match, reenter!"
+            },
+            Email: "Please enter a valid email address"
+        },
+        // Make sure the form is submitted to the destination defined
+        // in the "action" attribute of the form when valid
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
 
 });

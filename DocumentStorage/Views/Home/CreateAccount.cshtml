@@ -9,7 +9,7 @@
     <br />
 @using (Html.BeginForm("CreateAccount", "Home", FormMethod.Post, new { name = "createform", id = "createform" }))
 {
-    @Html.Partial("AccountDetails")
+    @Html.Partial("AccountInfo")
 }
 </div>
 
@@ -17,6 +17,7 @@
     If you have an account @Html.ActionLink("login", "Index", "Home") .
 
 </p>
+@*JQuery Validation scripts are in site.js*@
 
 @section Scripts{
     <script src="~/lib/jquery/dist/jquery.js"></script>

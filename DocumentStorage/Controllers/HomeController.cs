@@ -1,18 +1,31 @@
 ﻿using DocumentStorage.Models;
 using DocumentStorage.Models.DB;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
 
 namespace DocumentStorage.Controllers
 {
     public class HomeController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _loginManager;
 
-        public HomeController (AppDbContext context)
+        public HomeController (AppDbContext context, UserManager<User> secMgr, SignInManager<User> loginManager)
         {
+
             _context = context;
+            _userManager = secMgr;
+            _loginManager = loginManager;
+
+
         }
 
         public IActionResult Index()
@@ -27,18 +40,29 @@ namespace DocumentStorage.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Models.Login user)
+        public async Task<IActionResult> Login(Models.Login user)
         {
             if (ModelState.IsValid)
             {
-                if (user.IsValid(user.Email, user.Password, _context))
+                var userx = await _userManager.FindByEmailAsync(user.Email.ToUpper());
+                if (userx == null)
                 {
+                    ModelState.AddModelError(string.Empty, "Invalid login");
+                    return View();
+                }
+                var passwordSignInResult = await _loginManager.PasswordSignInAsync(userx, user.Password, isPersistent: false, lockoutOnFailure: false);
+                if (!passwordSignInResult.Succeeded)
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login");
+                    return View();
+                }
+
+                else 
+                {
+
                     return RedirectToAction("Dashboard", new { UserID = 1 });
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Login data is incorrect, please try again!");
-                }
+
             }
             return View(user);
         }
@@ -50,7 +74,7 @@ namespace DocumentStorage.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateAccount(Models.CreateAccount account)
+        public async Task<IActionResult> CreateAccount(Models.CreateAccount account)
         {
             if (ModelState.IsValid)
             {
@@ -60,14 +84,26 @@ namespace DocumentStorage.Controllers
                     {
                         FirstName = account.FirstName,
                         LastName = account.LastName,
-                        Email = account.Email,
-                        PasswordHash = account.SecurePassword(account.Password)
+                        Email = account.Email.ToLower(),
+                        PasswordHash = account.Password,
+                        UserName = account.Email.ToLower(),
+                        SecurityStamp = Guid.NewGuid().ToString(), //THIS IS WHAT I NEEDED,
+                    
+
                     };
 
-                    _context.Users.Add(user);
+                    var result = await _userManager.CreateAsync(user, account.Password);
 
-                    _context.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    if (result.Succeeded)
+                    {
+
+                        await _loginManager.SignInAsync(user, isPersistent: false);
+
+
+                        return RedirectToAction("Login", "Home");
+
+                    }
+
                 }
 
                 else
@@ -77,6 +113,8 @@ namespace DocumentStorage.Controllers
             }
             return View(account);
         }
+
+
 
         public IActionResult AddFile()
         {
@@ -126,5 +164,7 @@ namespace DocumentStorage.Controllers
         {
             return View();
         }
+
+
     }
 }

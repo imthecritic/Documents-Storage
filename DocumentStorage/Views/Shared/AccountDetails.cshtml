@@ -1,21 +1,17 @@
 ﻿@model DocumentStorage.Models.CreateAccount
-
-
-
-    <div class="form-group">
+<div class="form-group">
         @Html.LabelFor(m => m.FirstName, "First Name", htmlAttributes: new { name = "firstname", @class = "control-label col-md-2" })
         @Html.TextBoxFor(m => m.FirstName)
-    </div>
-        <div class="form-group">
+</div>
+<div class="form-group">
             @Html.LabelFor(m => m.LastName, "Last Name", htmlAttributes: new { name = "lastname", @class = "control-label col-md-2" })
             @Html.TextBoxFor(m => m.LastName)
-
-        </div>
-        <div class="form-group">
+</div>
+<div class="form-group">
             @Html.LabelFor(m => m.Email, htmlAttributes: new { name = "email", @class = "control-label col-md-2" })
             @Html.TextBoxFor(m => m.Email)
 
-        </div>
+</div>
         <div class="form-group">
             @Html.LabelFor(m => m.Password, htmlAttributes: new { name = "password", @class = "control-label col-md-2" })
             @Html.PasswordFor(m => m.Password)

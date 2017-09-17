@@ -28,6 +28,7 @@ namespace DocumentStorage
                 try
                 {
                     var context = services.GetRequiredService<AppDbContext>();
+
                     DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)

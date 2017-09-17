@@ -11,10 +11,19 @@ namespace DocumentStorage.Models.DB
     public class UserFile
     {
         [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int RowID { get; set; }
 
+        [Required]
         public int FileID { get; set; }
 
+        [Required]
         public int UserID { get; set; }
+
+        [ForeignKey("UserID")]
+        public User user { get; set; }
+
+        [ForeignKey("FileID")]
+        public File file { get; set; }
     }
 }

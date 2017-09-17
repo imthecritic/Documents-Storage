@@ -12,6 +12,7 @@ namespace DocumentStorage.Models.DB
     public class File
     {
         [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int FileID { get; set; }
 
         [Required]

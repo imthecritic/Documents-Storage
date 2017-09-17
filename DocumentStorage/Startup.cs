@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using DocumentStorage.Models.DB;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity;
 
 namespace DocumentStorage
 {
@@ -33,7 +33,25 @@ namespace DocumentStorage
             // Add framework services.
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            
+
+            //Security flaw: stripped password requirements to make it easier to test things
+            services.AddIdentity<User, UserRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 1;
+                options.User.AllowedUserNameCharacters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 -._@+";
+                // Cookie settings
+                options.Cookies.ApplicationCookie.ExpireTimeSpan = TimeSpan.FromDays(150);
+                options.Cookies.ApplicationCookie.LoginPath = "/Home/LogIn";
+                options.Cookies.ApplicationCookie.LogoutPath = "/Home/LogOut";
+            }).AddEntityFrameworkStores<AppDbContext, int>()
+            .AddDefaultTokenProviders();
+
+
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsPrincipalFactory>();
 
             services.AddMvc();
         }
@@ -55,6 +73,9 @@ namespace DocumentStorage
             }
 
             app.UseStaticFiles();
+
+            app.UseIdentity();
+
 
             app.UseMvc(routes =>
             {

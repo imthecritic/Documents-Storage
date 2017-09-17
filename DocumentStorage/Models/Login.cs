@@ -20,7 +20,13 @@ namespace DocumentStorage.Models
         [DataType(DataType.Password)]
         public string Password {get; set;}
 
-        public int UserID { get; set; }
+        public string SecurePassword(string password)
+        {
+            MD5 md5Hash = MD5.Create();
+           string hashed = GetMd5Hash(md5Hash, password);
+           return hashed;
+         }
+
 
         public bool IsValid(string email, string password, AppDbContext context)
         {

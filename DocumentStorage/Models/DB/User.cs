@@ -6,14 +6,17 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace DocumentStorage.Models.DB
 {
     [Table("users")]
     public class User : IdentityUser<int>
     {
-        [Key]
-        public int UserID { get; set; }
+        //[Key]
+        //[DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        //public int Id { get; set; }
 
         //[Required]
         //public string PasswordHash { get; set; }
@@ -26,6 +29,7 @@ namespace DocumentStorage.Models.DB
 
         //[Required]
         //public string Email { get; set; }
+
 
     }
 }

@@ -9,8 +9,10 @@
     @using (Html.BeginForm("AddFile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="form-group">
-            File: <input type="file" name="file" id="addFileSelector" />
-        </div>
-            <input type="submit" name="Submit" id="addFileSubmitButton" value="upload" />
+            <div class="col-md-10">
+                File: <input type="file" name="files" id="addFileSelector" />
+               </div>
+            </div>
+            <input type="submit" name="Submit" id="addFileSubmitButton" value="Upload" />
      }
 </section>

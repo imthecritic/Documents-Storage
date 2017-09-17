@@ -14,16 +14,36 @@
 <body>
     <div class="container">
         <div class="page-header">
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>Welcome, @User.Identity.Name</h2>
+}
+else
+{
             <h2>Welcome</h2>
+}
         </div>
     </div>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-area="" asp-controller="Home" asp-action="Dashboard">Home</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Edit">Edit Account</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="AddFile">Add File</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Logout">Logout</a></li>
+
+                    }
+                    else
+                    {
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="CreateAccount">Create Account</a></li>
+                    }
                 </ul>
+
             </div>
         </div>
     </nav>

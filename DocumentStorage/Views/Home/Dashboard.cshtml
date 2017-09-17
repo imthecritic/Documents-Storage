@@ -20,7 +20,8 @@
             <th></th>
         </tr>
         <tbody>
- @foreach (var item in Model)
+@if(Model != null) { 
+@foreach (var item in Model)
  {
     <tr>
         <td>
@@ -37,7 +38,9 @@
             @Html.ActionLink("Delete", "Delete", new { id = item.FileID })
         </td>
     </tr>
- }
+
+}
+}
         </tbody>
     </table>
 </div>

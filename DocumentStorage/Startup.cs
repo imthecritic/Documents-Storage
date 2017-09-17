@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using DocumentStorage.Models.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace DocumentStorage
 {
@@ -50,6 +51,7 @@ namespace DocumentStorage
             }).AddEntityFrameworkStores<AppDbContext, int>()
             .AddDefaultTokenProviders();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddScoped<IUserClaimsPrincipalFactory<User>, CustomClaimsPrincipalFactory>();
 
